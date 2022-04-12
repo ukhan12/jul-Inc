@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "express": "^4.17.3",
+    "knex": "^1.0.4",
+    "pg": "^8.7.3"
+  },
+  "name": "unit-7-project",
+  "description": "Unit 7 Api project ",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukhan12/unit-7-Project.git"
+  },
+  "author": "JUL INC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ukhan12/unit-7-Project/issues"
+  },
+  "homepage": "https://github.com/ukhan12/unit-7-Project#readme"
+}
