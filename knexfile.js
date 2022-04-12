@@ -9,28 +9,11 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'task_managerr',
-      user:     'jah',
-      password: 'nohacking'
+      user:     'liam',
+      password: 'password'
     }
   },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'task_managerr',
-      user:     'jah',
-      password: 'nohacking'
-  },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
- 
-  production: {
+   production: {
     client: 'postgresql',
   },
     migrations: {
