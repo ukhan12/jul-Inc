@@ -8,7 +8,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'todoListSet',
+      database: 'task_managerr',
       user:     'jah',
       password: 'nohacking'
     }
@@ -17,7 +17,7 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
-      database: 'todoListSet',
+      database: 'task_managerr',
       user:     'jah',
       password: 'nohacking'
   },
@@ -29,21 +29,12 @@ module.exports = {
       tableName: 'knex_migrations'
     }
   },
-
+ 
   production: {
     client: 'postgresql',
-    connection: {
-      database: 'todoListSet',
-      user:     'jah',
-      password: 'nohacking'
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
+  },
     migrations: {
       tableName: 'knex_migrations'
     }
-  }
 
 };
