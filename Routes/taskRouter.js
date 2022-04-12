@@ -1,28 +1,17 @@
 const router = require('express').Router();;
+const {fetchTasks,createTask,deleteTasks,getTasksById,updateTask,markCompleted} = require('../Controller/taskController')
+const {markCompletedd} = require('../Models/Task')
 
+router.get('/tasks',fetchTasks)
 
-router.get('/tasks', (req,res) => {
+router.get('/tasks/:id',getTasksById)
 
-})
+router.post('/tasks', createTask)
 
-router.get('/tasks/:id', (req,res) => {
-    
-})
+router.patch("/tasks/:id", updateTask)
 
-router.post('/todos' , (req,res) => {
+router.put("/tasks/:id/complete", markCompleted)
 
-})
+router.delete('/tasks/:id', deleteTasks)
 
-router.patch("/tasks/:id", (req,res) => {
-    
-})
-
-router.put("/tasks/:id/complete", (req,res) => {
-    
-})
-
-router.delete('/todos/:id', (req,res) => {
-
-})
-
-module.exports = router
+module.exports = router;
