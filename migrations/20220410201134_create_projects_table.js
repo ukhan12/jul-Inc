@@ -7,7 +7,7 @@ exports.up = function(knex) {
         table.increments('id').primary();
         table.string('description').notNullable();
         table.boolean('completed').defaultTo(false);
-        table.timestamp(true, true);
+        table.timestamp('created_at').defaultTo(knex.fn.now())
     })
 };
 
