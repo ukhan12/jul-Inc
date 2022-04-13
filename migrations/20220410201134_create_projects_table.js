@@ -6,7 +6,8 @@ exports.up = function(knex) {
     return knex.schema.createTable('projects', (table) => {
         table.increments('id').primary();
         table.string('description').notNullable();
-        table.timestamp('created').notNullable();
+        table.boolean('completed').defaultTo(false);
+        table.timestamp(true, true);
     })
 };
 
