@@ -21,7 +21,7 @@ class projectsManager{
 
     static async markComplete(id, completed){
         if(!id) throw new Error('An id is required');
-        const query = 'UPDATE projects SET completed = true WHERE task_id = $1';
+        const query = 'UPDATE projects SET completed = true WHERE id = $1';
         const results = await pool.query(query, [id]);
         return results.rows[0];
     }
@@ -36,7 +36,7 @@ class projectsManager{
         if(!id) throw newError('Id does not exist')
         const query = 'DELETE FROM projects WHERE id = $1';
         const results = await pool.query(query,[id]);
-        return results.rows[0]
+        return results.rows;
     }
 }
 

@@ -12,6 +12,6 @@ router.patch("/projects/:id", updateProject)
 
 router.put("/projects/:id/complete", markCompleted)
 
-router.delete('projects/id', deleteProject)
+router.delete('/projects/:id', deleteProject)
 
 module.exports = router;
