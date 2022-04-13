@@ -1,0 +1,7 @@
+node_modules/
+
+# git rm -r --cached . && git add . && git commit -am "Remove ignored files"
+
+# const authCheck = (req,res,next){
+# const headers = req
+# }
