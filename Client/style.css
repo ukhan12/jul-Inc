@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    background-color: aliceblue;
+}
+
+#create-task-form {
+    /* width: 50%; */
+    margin: auto;
+}
+
+.row {
+    text-align: center;
+}
+
+.hide {
+    display:none;
+}
+
+.drag-over {
+    border: dashed 3px red;
+}
