@@ -1,101 +1,99 @@
 // Brower JS Code
 
-const url = "http://localhost:9000/tasks"
-      
-document.getElementById('create-task-form').addEventListener('submit', createTask)
+const url = "http://localhost:9000/tasks";
 
-function createTask(event){
-  event.preventDefault()
-  const desc = document.getElementById('description').value
+document
+  .getElementById("create-task-form")
+  .addEventListener("submit", createTask);
+
+function createTask(event) {
+  event.preventDefault();
+  const taskItem = document.getElementById("description").value;
 
   fetch(url, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    mode: 'cors',
-    body: JSON.stringify({task: desc})
-  })
+    mode: "cors",
+    body: JSON.stringify({ task: taskItem }),
+  });
 }
 
-function renderTasks(task){
-  const listItem = document.createElement('div')
-  listItem.setAttribute("id", "to-do")
-  listItem.setAttribute("class", "col, item,")
-  listItem.setAttribute("draggable", "true")
+function renderTasks(task) {
+  const listItem = document.createElement("div");
+  listItem.setAttribute("id", "to-do");
+  listItem.setAttribute("class", "col, item,");
+  listItem.setAttribute("draggable", "true");
 
-  const description = document.createElement('div')
-  description.setAttribute("class", "p-3 border bg-light")
-  description.setAttribute("id", "content-box")
+  const description = document.createElement("div");
+  description.setAttribute("class", "p-3 border bg-light");
+  description.setAttribute("id", "content-box");
   // description.setAttribute("draggable", "true")
-  
-  console.log(task)
-  description.innerText = task.Task
-  
-  listItem.append(description)
 
-  const toDoContainer = document.getElementById('to-do-container')
-  toDoContainer.append(listItem)
+  console.log(task);
+  description.innerText = task.task;
 
-  
-  // DRAGGABLE TASK ITEM FUNCTIONALITY 
-    // listItem.addEventListener('dragstart', dragStart);
-    // function dragStart(e) {
-    //   e.dataTransfer.setData('text/plain', e.target.id);
-    //   setTimeout(() => {
-    //       e.target.classList.add('hide');
-    //   }, 0);
-    // }
-    // /* drop targets */
-    // const boxes = document.querySelectorAll('.box-container');
+  listItem.append(description);
 
-    // boxes.forEach(box => {
-    //   box.addEventListener('dragenter', dragEnter)
-    //   box.addEventListener('dragover', dragOver);
-    //   box.addEventListener('dragleave', dragLeave);
-    //   box.addEventListener('drop', drop);
-    // });
+  const toDoContainer = document.getElementById("to-do-container");
+  toDoContainer.append(listItem);
 
-    // function dragEnter(e) {
-    //   e.preventDefault();
-    //   e.target.classList.add('drag-over');
-    // }
+  // DRAGGABLE TASK ITEM FUNCTIONALITY
+  // listItem.addEventListener('dragstart', dragStart);
+  // function dragStart(e) {
+  //   e.dataTransfer.setData('text/plain', e.target.id);
+  //   setTimeout(() => {
+  //       e.target.classList.add('hide');
+  //   }, 0);
+  // }
+  // /* drop targets */
+  // const boxes = document.querySelectorAll('.box-container');
 
-    // function dragOver(e) {
-    //   e.preventDefault();
-    //   e.target.classList.add('drag-over');
-    // }
+  // boxes.forEach(box => {
+  //   box.addEventListener('dragenter', dragEnter)
+  //   box.addEventListener('dragover', dragOver);
+  //   box.addEventListener('dragleave', dragLeave);
+  //   box.addEventListener('drop', drop);
+  // });
 
-    // function dragLeave(e) {
-    //   e.target.classList.remove('drag-over');
-    // }
+  // function dragEnter(e) {
+  //   e.preventDefault();
+  //   e.target.classList.add('drag-over');
+  // }
 
-    // function drop(e) {
-    //   e.target.classList.remove('drag-over');
+  // function dragOver(e) {
+  //   e.preventDefault();
+  //   e.target.classList.add('drag-over');
+  // }
 
-    //   // get the draggable element
-    //   const id = e.dataTransfer.getData('text/plain');
-    //   const draggable = document.getElementById(id);
+  // function dragLeave(e) {
+  //   e.target.classList.remove('drag-over');
+  // }
 
-    //   // add it to the drop target
-    //   e.target.appendChild(draggable);
+  // function drop(e) {
+  //   e.target.classList.remove('drag-over');
 
-    //   // display the draggable element
-    //   draggable.classList.remove('hide');
-    // }
-} 
+  //   // get the draggable element
+  //   const id = e.dataTransfer.getData('text/plain');
+  //   const draggable = document.getElementById(id);
 
-function iterateThroughData(tasks){
-  console.log(tasks)
-  tasks.forEach(renderTasks)
+  //   // add it to the drop target
+  //   e.target.appendChild(draggable);
+
+  //   // display the draggable element
+  //   draggable.classList.remove('hide');
+  // }
 }
 
-function initialFetchTasks(){
+function iterateThroughData(tasks) {
+  console.log(tasks);
+  tasks.forEach(renderTasks);
+}
+
+function initialFetchTasks() {
   fetch(url)
-  .then(res => res.json())
-  .then(data => iterateThroughData(data.data))
+    .then((res) => res.json())
+    .then((data) => iterateThroughData(data.data));
 }
-initialFetchTasks()
-
-
-
+initialFetchTasks();
