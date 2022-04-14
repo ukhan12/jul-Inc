@@ -5,19 +5,20 @@
 
 // Tasks Table
 exports.up = function(knex) {
-  return knex.schema.createTable('Tasks', (table) => {
-      table.increments('Task_Id').notNullable();
-      table.string('Task').notNullable();
-      table.timestamp('Created').notNullable
-      table.integer('Severity_Id')
-      table.boolean('Completed').defaultTo(false)
+  return knex.schema.createTable('tasks', (table) => {
+      table.increments('task_id').nullable;
+      table.timestamp('created').defaultTo(knex.fn.now());
+      table.integer('severity_id').nullable()
+      table.boolean('completed').defaultTo(false);
+      table.integer('project_id').references('id').inTable('projects').onDelete('cascade');
+      table.string('task').notNullable()
   })
-};
+};   
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-  return knex.schema.dropTable('Tasks')
+  return knex.schema.dropTable('tasks')
 };

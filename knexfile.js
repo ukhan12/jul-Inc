@@ -13,28 +13,11 @@ module.exports = {
       password: 'nohacking'
     }
   },
-
-  staging: {
+   production: {
     client: 'postgresql',
-    connection: {
-      database: 'task_managerr',
-      user:     'jah',
-      password: 'nohacking'
   },
-    pool: {
-      min: 2,
-      max: 10
+    migrations: {
+      tableName: 'knex_migrations'
     },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
-  },
- 
-  production: {
-    client: 'postgresql',
-  },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
 
 };

@@ -125,10 +125,11 @@ async function markCompleted(req,res){
   }
 
   module.exports = {
-      fetchTasks,
-      createTask,
-      deleteTasks,
-      getTasksById,
-      updateTask,
-      markCompleted
-};
+    fetchTasks, 
+    createTask,
+    deleteTasks,
+    getTasksById,
+    updateTask,
+    markCompleted
+  };
+

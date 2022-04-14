@@ -2,14 +2,14 @@ const pool = require("../db");
 
 class TasksManager{
     static async findAll() {
-        const sql = `Select * FROM "Tasks"`;
+        const sql = `SELECT * FROM tasks`;
     
         const dbResult = await pool.query(sql);
     
         return dbResult.rows;
       }
       static async getSpecificTask(id){
-          const sql = `select * from "Tasks" where "Task_Id" = ($1)`;
+          const sql = `SELECT * FROM tasks WHERE task_id = ($1)`;
 
           const dbResult = await pool.query(sql,[id]);
 
@@ -17,7 +17,7 @@ class TasksManager{
       }
 
       static async updateTask(id,Task){
-          const sql = `Update "Tasks" set "Task" = ($2) where "Task_Id" = ($1)`;
+          const sql = `UPDATE tasks SET task = ($2) WHERE task_id = ($1)`;
 
           const dbResult = await pool.query(sql,[id,Task]);
 
@@ -25,8 +25,8 @@ class TasksManager{
       }
 
       static async markCompletedd(id,Completed){
-          if(!id) throw new Error(`An Id is required`);
-          const sql = `UPDATE "Tasks" set "Completed" = true where "Task_Id" = ($1)`
+          if(!id) throw new Error(`An id is required`);
+          const sql = `UPDATE tasks SET completed = true WHERE task_id = $1`
 
           const dbResult = await pool.query(sql,[id]);
          
@@ -34,27 +34,28 @@ class TasksManager{
       }
       static async create(data){
           console.log(data)
-        const sql=`insert into "Tasks" ("Task") values ($1) returning *`
+        const sql=`INSERT INTO tasks (task) values ($1) RETURNING *`
 
           const dbResult = await pool.query(sql, [data])
         //   console.log(dbResult.rows)
           return dbResult.rows
       }
       
-      static async delete(id){
-          if(!id) throw new Error('Id doesnt exist')
+      // static async delete(id){
+      //     if(!id) throw new Error('Id doesnt exist')
 
-          const sql = `SELECT FROM "Tasks" WHERE "Task_Id" =  ($1)`;
+      //     const sql = `SELECT * FROM tasks WHERE task_id =  ($1)`;
           
-          const dbResult = await pool.query(sql);
+      //     const dbResult = await pool.query(sql);
 
-          return dbResult.rows[0]
+      //     return dbResult.rows[0]
         
-      }
+      // }
+
       static async remove(id){
         if(!id) throw new Error('Id doesnt exist')
 
-        const sql = `DELETE FROM "Tasks" WHERE "Task_Id" =  ($1)`;
+        const sql = `DELETE FROM tasks WHERE task_id =  ($1)`;
         
         const dbResult = await pool.query(sql,[id]);
 
