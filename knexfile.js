@@ -9,8 +9,8 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'task_managerr',
-      user:     'uzma',
-      password: '123'
+      user:     'jah',
+      password: 'nohacking'
     }
   },
    production: {
@@ -18,6 +18,6 @@ module.exports = {
   },
     migrations: {
       tableName: 'knex_migrations'
-    }
+    },
 
 };
