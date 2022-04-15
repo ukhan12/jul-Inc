@@ -1,10 +1,45 @@
 // Brower JS Code
-
 const url = "http://localhost:9000/tasks";
 
-document
-  .getElementById("create-task-form")
-  .addEventListener("submit", createTask);
+function initialFetchTasks() {
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => iterateThroughData(data.data));
+}
+initialFetchTasks();
+
+function iterateThroughData(tasks) {
+  console.log(tasks);
+  tasks.forEach(renderTasks);
+}
+
+function renderTasks(task) {
+  const listItem = document.createElement("div");
+  const description = document.createElement("div");
+  const toDoContainer = document.getElementById("to-do-container");
+
+  listItem.setAttribute('id', task.task_id);
+  listItem.setAttribute("class", "col item");
+  listItem.setAttribute("draggable", "true");
+
+  description.setAttribute("class", "p-3 border bg-light");
+  description.innerText = task.task;
+
+  listItem.append(description);
+  toDoContainer.append(listItem);
+}
+
+let item = document.getElementsByClassName(".item")
+
+item.addEventListener('click', clickedTask(item))
+
+function clickedTask(item){
+  let task_id = item.id
+  console.log("task has been clicked")
+  console.log(task_id)
+} 
+
+document.getElementById("create-task-form").addEventListener("submit", createTask);
 
 function createTask(event) {
   event.preventDefault();
@@ -19,25 +54,6 @@ function createTask(event) {
     body: JSON.stringify({ task: taskItem }),
   });
 }
-
-function renderTasks(task) {
-  const listItem = document.createElement("div");
-  listItem.setAttribute("id", "to-do");
-  listItem.setAttribute("class", "col, item,");
-  listItem.setAttribute("draggable", "true");
-
-  const description = document.createElement("div");
-  description.setAttribute("class", "p-3 border bg-light");
-  description.setAttribute("id", "content-box");
-  // description.setAttribute("draggable", "true")
-
-  console.log(task);
-  description.innerText = task.task;
-
-  listItem.append(description);
-
-  const toDoContainer = document.getElementById("to-do-container");
-  toDoContainer.append(listItem);
 
   // DRAGGABLE TASK ITEM FUNCTIONALITY
   // listItem.addEventListener('dragstart', dragStart);
@@ -84,16 +100,3 @@ function renderTasks(task) {
   //   // display the draggable element
   //   draggable.classList.remove('hide');
   // }
-}
-
-function iterateThroughData(tasks) {
-  console.log(tasks);
-  tasks.forEach(renderTasks);
-}
-
-function initialFetchTasks() {
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => iterateThroughData(data.data));
-}
-initialFetchTasks();
