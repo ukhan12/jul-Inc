@@ -34,23 +34,11 @@ class TasksManager{
       }
       static async create(data){
           console.log(data)
-        const sql=`INSERT INTO tasks (task) values ($1) RETURNING *`
+          const sql=`INSERT INTO tasks (task) values ($1) RETURNING *`
 
           const dbResult = await pool.query(sql, [data])
-        //   console.log(dbResult.rows)
           return dbResult.rows
       }
-      
-      // static async delete(id){
-      //     if(!id) throw new Error('Id doesnt exist')
-
-      //     const sql = `SELECT * FROM tasks WHERE task_id =  ($1)`;
-          
-      //     const dbResult = await pool.query(sql);
-
-      //     return dbResult.rows[0]
-        
-      // }
 
       static async remove(id){
         if(!id) throw new Error('Id doesnt exist')

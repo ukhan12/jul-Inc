@@ -1,5 +1,8 @@
 // Brower JS Code
 const url = "http://localhost:9000/tasks";
+const toDoContainer = document.getElementById("to-do-container");
+
+document.getElementById("create-task-form").addEventListener("submit", createTask);
 
 function initialFetchTasks() {
   fetch(url)
@@ -10,93 +13,105 @@ initialFetchTasks();
 
 function iterateThroughData(tasks) {
   console.log(tasks);
-  tasks.forEach(renderTasks);
-}
-
-function renderTasks(task) {
-  const listItem = document.createElement("div");
-  const description = document.createElement("div");
-  const toDoContainer = document.getElementById("to-do-container");
-
-  listItem.setAttribute('id', task.task_id);
-  listItem.setAttribute("class", "col item");
-  listItem.setAttribute("draggable", "true");
-
-  description.setAttribute("class", "p-3 border bg-light");
-  description.innerText = task.task;
-
-  listItem.append(description);
-  toDoContainer.append(listItem);
-}
-
-let item = document.getElementsByClassName(".item")
-
-item.addEventListener('click', clickedTask(item))
-
-function clickedTask(item){
-  let task_id = item.id
-  console.log("task has been clicked")
-  console.log(task_id)
-} 
-
-document.getElementById("create-task-form").addEventListener("submit", createTask);
-
-function createTask(event) {
-  event.preventDefault();
-  const taskItem = document.getElementById("description").value;
-
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    mode: "cors",
-    body: JSON.stringify({ task: taskItem }),
+  tasks.forEach(task => {
+    renderTasks(task) 
   });
 }
 
-  // DRAGGABLE TASK ITEM FUNCTIONALITY
-  // listItem.addEventListener('dragstart', dragStart);
-  // function dragStart(e) {
-  //   e.dataTransfer.setData('text/plain', e.target.id);
-  //   setTimeout(() => {
-  //       e.target.classList.add('hide');
-  //   }, 0);
-  // }
-  // /* drop targets */
-  // const boxes = document.querySelectorAll('.box-container');
+function renderTasks(task) {
+  const listItem = document.createElement("li");
+  const description = document.createElement("p");
+  
+  listItem.setAttribute('id', task.task_id);
+  description.setAttribute('id', task.task_id);
 
-  // boxes.forEach(box => {
-  //   box.addEventListener('dragenter', dragEnter)
-  //   box.addEventListener('dragover', dragOver);
-  //   box.addEventListener('dragleave', dragLeave);
-  //   box.addEventListener('drop', drop);
-  // });
+  listItem.setAttribute("class", "p-3 border shadow-sm item");
+  description.innerText = task.task;
 
-  // function dragEnter(e) {
-  //   e.preventDefault();
-  //   e.target.classList.add('drag-over');
-  // }
+  const deleteBtn = document.createElement("button");
+    // add the todo's id as a data attribute so we can reference later
+    deleteBtn.setAttribute('id', task.task_id)
+    deleteBtn.setAttribute('class', 'deleteBtn')
+    const deleteimg = document.createElement('img')
+    deleteimg.src = 'x-lg.svg'
+    deleteBtn.append(deleteimg)
 
-  // function dragOver(e) {
-  //   e.preventDefault();
-  //   e.target.classList.add('drag-over');
-  // }
+    listItem.addEventListener('click', onClick);
+    deleteBtn.addEventListener("click", deleteTodo);
 
-  // function dragLeave(e) {
-  //   e.target.classList.remove('drag-over');
-  // }
+  listItem.append(description);
+  listItem.append(deleteBtn);
+  toDoContainer.append(listItem);
+}
 
-  // function drop(e) {
-  //   e.target.classList.remove('drag-over');
+document.querySelectorAll('.item').forEach((item) => {
+  console.log(item)
+  item.addEventListener('click', (event) => {
+    console.log('clicked');
+  });
+});
 
-  //   // get the draggable element
-  //   const id = e.dataTransfer.getData('text/plain');
-  //   const draggable = document.getElementById(id);
 
-  //   // add it to the drop target
-  //   e.target.appendChild(draggable);
+function createTask(event) {
+  event.preventDefault();
+  const value = event.target.description.value
+  console.log(value)
+  const options = {
+    method: "POST",
+    headers: {
+      'Content-type': 'application/json'
+    },
+    mode: "cors",
+    body: JSON.stringify({
+      task: value
+    })
+  }
+  fetch(url, options)
+  .then(res => res.json())
+  .then(data => {
+    renderTasks(data.data)
+  })
+}
 
-  //   // display the draggable element
-  //   draggable.classList.remove('hide');
-  // }
+function deleteTodo(event) {
+  const task_id = event.target.id;
+  const deleteurl = `http://localhost:9000/tasks/${task_id}`
+  const options = {
+    method: "DELETE"
+  }
+  fetch(deleteurl, options)
+}
+
+function onClick(event){
+  console.log(event.target.id)
+}
+
+
+// DARK MODE
+let toggle = false;
+
+function darkFunction(){
+  const el = document.body
+  const btnImage = document.getElementById('img');
+  const toggleBtn = document.getElementById('widget-light');
+  const toggleBtn2 = document.getElementById('widget-light2');
+  const addBtn = document.getElementById('add-btn');
+  const header = document.getElementById('task-man')
+  const offCanvas = document.getElementById('offcanvasWithBothOptions')
+  const modal = document.getElementById('modal-task')
+  el.classList.toggle('dark-mode')
+  toggleBtn.classList.toggle('widget-dark');
+  toggleBtn2.classList.toggle('widget-dark');
+  addBtn.classList.toggle('widget-dark2');
+  header.classList.toggle('task-man-dark')
+  offCanvas.classList.toggle('bg-dark')
+  modal.classList.toggle('bg-dark');
+  if(!toggle){
+    toggle = true;
+    btnImage.src = "moon-fill.svg"
+  }
+  else {
+    toggle = false;
+    btnImage.src = "brightness-high-fill.svg"
+  }
+}
