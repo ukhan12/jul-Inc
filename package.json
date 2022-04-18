@@ -7,7 +7,7 @@
     "knex": "1.0.4",
     "pg": "^8.7.3"
   },
-  "name": "unit-7-project",
+  "name": "jul-Inc",
   "description": "Unit 7 Api project ",
   "version": "1.0.0",
   "main": "app.js",
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ukhan12/unit-7-Project.git"
+    "url": "git+https://github.com/ukhan12/jul-Inc.git"
   },
   "author": "JUL INC",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ukhan12/unit-7-Project/issues"
+    "url": "https://github.com/ukhan12/jul-Inc/issues"
   },
-  "homepage": "https://github.com/ukhan12/unit-7-Project#readme"
+  "homepage": "https://github.com/ukhan12/jul-Inc#readme"
 }
