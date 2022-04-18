@@ -14,13 +14,13 @@ app.use(taskRouter);
 app.use(projectRouter);
 app.use(userRouter);
 
-// app.get('/', function(req, res){
-//     res.redirect('/tasks');
-//  });
-
 app.get('/', function(req, res){
-    res.send('/');
+    res.redirect('/tasks');
  });
+
+// app.get('/', function(req, res){
+//     res.send('/');
+//  });
 
 
 
