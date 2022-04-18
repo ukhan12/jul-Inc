@@ -29,28 +29,34 @@ function renderTasks(task) {
   description.innerText = task.task;
 
   const deleteBtn = document.createElement("button");
+  const updateBtn = document.createElement("button");
+
     // add the todo's id as a data attribute so we can reference later
-    deleteBtn.setAttribute('id', task.task_id)
-    deleteBtn.setAttribute('class', 'deleteBtn')
-    const deleteimg = document.createElement('img')
+    // deleteBtn.setAttribute('id', task.task_id);
+    deleteBtn.setAttribute('class', 'deleteBtn');
+    // updateBtn.setAttribute('id', task.task_id); // This is where we are storing the task_id for the update function
+    updateBtn.setAttribute('class', 'updateBtn');
+
+    updateBtn.setAttribute('data-bs-toggle', 'modal')
+    updateBtn.setAttribute('data-bs-target', '#updateModal')
+
+    const deleteimg = document.createElement('img');
+    const updateimg = document.createElement('img');
+    updateimg.src = 'pencil-fill.svg'
+    updateimg.setAttribute('id', task.task_id);
+    updateBtn.append(updateimg)
     deleteimg.src = 'x-lg.svg'
+    deleteimg.setAttribute('id', task.task_id)
     deleteBtn.append(deleteimg)
 
-    listItem.addEventListener('click', onClick);
-    deleteBtn.addEventListener("click", deleteTodo);
+    // listItem.addEventListener('click', onClick);
+    deleteimg.addEventListener("click", deleteTodo);
+    updateimg.addEventListener('click', updateTask);
 
   listItem.append(description);
-  listItem.append(deleteBtn);
+  listItem.append(deleteBtn, updateBtn);
   toDoContainer.append(listItem);
 }
-
-document.querySelectorAll('.item').forEach((item) => {
-  console.log(item)
-  item.addEventListener('click', (event) => {
-    console.log('clicked');
-  });
-});
-
 
 function createTask(event) {
   event.preventDefault();
@@ -73,6 +79,37 @@ function createTask(event) {
   })
 }
 
+// Form submitted event listener
+document.getElementById('update-task-form').addEventListener('submit', update)
+
+// This function is where the task_id is being stored and it's called when the user clicks on the updateBtn
+function updateTask(event){
+  event.preventDefault();
+  const task_id = event.target.id
+  update(task_id)
+}
+
+// This where the input value is being saved but it isn't accessible from the putside function
+function update(event, id){
+  event.preventDefault();
+  const value = event.target.update.value
+  console.log(value)
+  console.log(id)
+  const patchurl = `http://localhost:9000/tasks/${task_id}`
+  const options = {
+    method: "PATCH", 
+    headers: {
+      'Content-type': 'application/json'
+    },
+    mode: "cors",
+    body: JSON.stringify({
+      task: value // Need to get the input value somehow
+    })
+  }
+  fetch(patchurl, options)
+}
+
+
 function deleteTodo(event) {
   const task_id = event.target.id;
   const deleteurl = `http://localhost:9000/tasks/${task_id}`
@@ -82,10 +119,9 @@ function deleteTodo(event) {
   fetch(deleteurl, options)
 }
 
-function onClick(event){
-  console.log(event.target.id)
-}
-
+// function onClick(event){
+//   console.log(event.target.id)
+// }
 
 // DARK MODE
 let toggle = false;
