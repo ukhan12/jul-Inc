@@ -14,11 +14,11 @@ initialFetchTasks();
 function iterateThroughData(tasks) {
   console.log(tasks);
   tasks.forEach(task => {
-    renderTasks(task) 
+    renderTask(task) 
   });
 }
 
-function renderTasks(task) {
+function renderTask(task) {
   const listItem = document.createElement("li");
   const description = document.createElement("p");
   
@@ -56,6 +56,7 @@ function renderTasks(task) {
   listItem.append(description);
   listItem.append(deleteBtn, updateBtn);
   toDoContainer.append(listItem);
+
 }
 
 function createTask(event) {
@@ -75,9 +76,12 @@ function createTask(event) {
   fetch(url, options)
   .then(res => res.json())
   .then(data => {
-    renderTasks(data.data)
+    renderTask(data.data[data.data.length-1])
   })
+  description.value = "";
 }
+
+
 
 // Form submitted event listener
 document.getElementById('update-task-form').addEventListener('submit', update)
@@ -112,16 +116,17 @@ function update(event, id){
 
 function deleteTodo(event) {
   const task_id = event.target.id;
+  console.log(task_id);
   const deleteurl = `http://localhost:9000/tasks/${task_id}`
   const options = {
     method: "DELETE"
   }
   fetch(deleteurl, options)
-}
+ 
+  const task = document.getElementById(task_id);
+  task.remove();
 
-// function onClick(event){
-//   console.log(event.target.id)
-// }
+}
 
 // DARK MODE
 let toggle = false;
