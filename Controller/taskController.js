@@ -16,29 +16,31 @@ async function fetchTasks(req, res){
    }
 }
 
-async function createTask(req,res){
-    // validate the data 
-    const {task} = req.body
-    // console.log(task)
-    if(!task){
-        return res.status(400).json({
-            message : "Enter body data please"
-        })
-    }
-    try{
-        const taskItem = await TasksManager.create(task)
-        console.log(taskItem)
-        res.status(201).json({
-            data : taskItem
-            
-        });
+// async function createTask(req,res){
+//     // validate the data 
+//     const {task} = req.body
+//     const {project_id} = req.body
 
-    }catch (err){
-        res.status(400).json({
-            message:err.message
-        });
-    }
-}
+//     // console.log(task)
+//     if(!task){
+//         return res.status(400).json({
+//             message : "Enter body data please"
+//         })
+//     }
+//     try{
+//         const taskItem = await TasksManager.create(task, project_id)
+//         console.log(taskItem)
+//         res.status(201).json({
+//             data : taskItem,
+//             project_id: project_id
+//         });
+
+//     }catch (err){
+//         res.status(400).json({
+//             message:err.message
+//         });
+//     }
+// }
 
 async function deleteTasks(req,res){
     const taskId = req.params.id;
@@ -126,7 +128,6 @@ async function markCompleted(req,res){
 
   module.exports = {
     fetchTasks, 
-    createTask,
     deleteTasks,
     getTasksById,
     updateTask,

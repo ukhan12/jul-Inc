@@ -38,6 +38,15 @@ class projectsManager{
         const results = await pool.query(query,[id]);
         return results.rows;
     }
+
+    static async create(data, project_id){
+          console.log(data, project_id)
+        const sql=`INSERT INTO tasks (task, project_id) values ($1, $2) RETURNING *`
+
+          const dbResult = await pool.query(sql, [data, project_id])
+        //   console.log(dbResult.rows)
+          return dbResult.rows
+      }
 }
 
 module.exports = projectsManager;

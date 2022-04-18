@@ -1,6 +1,10 @@
 // Brower JS Code
 
+// import {projectName} from "./projectsPage.js";
+// console.log(projectName);
+
 const url = "http://localhost:9000/tasks";
+const getProjectsUrl = "http://localhost:9000/projects/id"
 
 document
   .getElementById("create-task-form")
@@ -97,3 +101,5 @@ function initialFetchTasks() {
     .then((data) => iterateThroughData(data.data));
 }
 initialFetchTasks();
+
+

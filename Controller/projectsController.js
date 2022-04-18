@@ -35,6 +35,8 @@ async function createProject(req, res){
     }
 }
 
+
+
 async function deleteProject(req, res){
     const projectId = req.params.id;
 
@@ -119,11 +121,38 @@ async function markCompleted(req, res){
         }
 }
 
+async function createTask(req,res){
+    // validate the data 
+    const {task} = req.body
+    const {project_id} = req.body
+
+    // console.log(task)
+    if(!task){
+        return res.status(400).json({
+            message : "Enter body data please"
+        })
+    }
+    try{
+        const taskItem = await projectsManager.create(task, project_id)
+        console.log(taskItem)
+        res.status(201).json({
+            data : taskItem,
+            project_id: project_id
+        });
+
+    }catch (err){
+        res.status(400).json({
+            message:err.message
+        });
+    }
+}
+
 module.exports = {
     fetchProjects,
     createProject,
     deleteProject,
     getProjectById,
     updateProject,
-    markCompleted
+    markCompleted,
+    createTask
 };
