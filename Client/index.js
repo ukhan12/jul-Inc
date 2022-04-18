@@ -56,6 +56,7 @@ function renderTask(task) {
   listItem.append(description);
   listItem.append(deleteBtn, updateBtn);
   toDoContainer.append(listItem);
+
 }
 
 function createTask(event) {
@@ -77,6 +78,7 @@ function createTask(event) {
   .then(data => {
     renderTask(data.data[data.data.length-1])
   })
+  description.value = "";
 }
 
 
@@ -114,11 +116,16 @@ function update(event, id){
 
 function deleteTodo(event) {
   const task_id = event.target.id;
+  console.log(task_id);
   const deleteurl = `http://localhost:9000/tasks/${task_id}`
   const options = {
     method: "DELETE"
   }
   fetch(deleteurl, options)
+ 
+  const task = document.getElementById(task_id);
+  task.remove();
+
 }
 
 // DARK MODE
