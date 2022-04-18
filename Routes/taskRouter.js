@@ -1,6 +1,6 @@
 const router = require('express').Router();;
 const {fetchTasks,createTask,deleteTasks,getTasksById,updateTask,markCompleted} = require('../Controller/taskController')
-const {markCompletedd} = require('../Models/Task')
+const { markCompletedd } = require('../Models/Task')
 
 router.get('/tasks',fetchTasks)
 
