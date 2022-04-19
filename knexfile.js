@@ -9,8 +9,8 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'task_managerr',
-      user:     'liam',
-      password: 'password'
+      user:     'uzma',
+      password: '123'
     }
   },
    production: {
